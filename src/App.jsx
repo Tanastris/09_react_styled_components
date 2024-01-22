@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import './styles/App.css';
+import GlobalStyles from './styles/Globalstyles';
 
 const MainTitle = styled.h1`
   text-transform: uppercase;
@@ -8,29 +9,40 @@ const MainTitle = styled.h1`
 `
 
 const MyButton = styled.button`
-${(props) => console.log(props)}
-  background: black;
-  color: white;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  background: ${(props) => props.$outline ? 'white': 'black'};
+  color: ${(props) => !props.$outline ? 'white': 'black'};
   border: 1px solid black;
   padding: 5px 10px;
   font-size: 17px;
   cursor: pointer;
   border-radius: 5px;
   &:hover {
-    background: grey
+    background: ${(props) => props.$outline ? '#cccccc': '#3f3f3f'};
   }
   &:active {
     outline: 1px solid tomato;
+  }
+`
+const RedBtn = styled(MyButton)`
+  background: tomato ;
+  border-color: tomato;
+  &:hover {
+    background: #ecaba0;
   }
 `
 
 export default function App() {
   return (
     <div className='App container'>
+      <GlobalStyles />
       <MainTitle>Hello, world!</MainTitle>
       <hr />
     <MyButton >Click Me</MyButton>
     <MyButton $outline>Outline btn</MyButton>
+    <RedBtn >I am red btn</RedBtn>
+    <RedBtn as={'a'} href='#kazkur' >I am red link not button</RedBtn>
     </div>
   );
 }
